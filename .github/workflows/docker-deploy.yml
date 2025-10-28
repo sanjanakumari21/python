@@ -15,6 +15,6 @@ jobs:
           username: '${{ secrets.DOCKER_USERNAME }}'
           password: '${{ secrets.DOCKER_PASSWORD }}'
       - name: Build Docker image
-        run: 'docker build -t 12sanjana/myapp:latest .'
+        run: 'docker build -t 12sanjana/myapp:latest ./python'
       - name: Push Docker image
         run: 'docker push 12sanjana/myapp:latest'
