@@ -9,7 +9,7 @@ COPY . /app
 
 # Install dependencies
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install -r requirement.txt
 
 # Command to run app
-CMD ["python", "app.py"]
+CMD ["python","app.py"]
