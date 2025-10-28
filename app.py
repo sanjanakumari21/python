@@ -3,4 +3,4 @@ def add_num(a,b):
     return a+b
 x=5
 y=3
-print("the sum of {x} and {y} is {add_num(x,y)}")
+print(f"the sum of {x} and {y} is {add_num(x,y)}")
