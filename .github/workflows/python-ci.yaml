@@ -33,4 +33,6 @@ jobs:
           tar -xzf ScaResolver-linux64.tar.gz
           echo "Listing files after extraction:"
           ls -la
-          . /ScaResolver
+          echo "running sca"
+          chmod +x ScaResolver
+          ./ScaResolver --help
