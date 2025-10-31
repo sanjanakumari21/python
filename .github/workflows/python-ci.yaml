@@ -24,3 +24,8 @@ jobs:
         run: pytest
       - name: shell
         run: wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+  steps:
+    -powershell: |
+    wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+    dir
+  displayName: 'download and list files' 
