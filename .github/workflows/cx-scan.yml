@@ -1,0 +1,26 @@
+name: Checkmarx Scan
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  sca-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Checkmarx Scan
+        run: >
+          # Replace the command below with your Checkmarx CLI or REST API scan
+          command
+
+          checkmarx-cli scan \
+            --project "python" \
+            --api-key ${{ secrets.cx-api }} \
+            --output "checkmarx-report.json"
+      - name: List Scan Report
+        run: |
+          ls -la checkmarx-report.json
