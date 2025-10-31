@@ -24,29 +24,14 @@ jobs:
         run: pytest
       - name: Download and setup SCA Resolver
         run: >
-          # Remove old ScaResolver if exists
-
           rm -f ScaResolver
-
-
-          # Download Linux 64-bit version
-
           wget
           https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
-
-
-          # Extract
-
+          pwd
+          ls -la
           tar -xzf ScaResolver-linux64.tar.gz
-
-
-          # Make executable
-
+          ls -la
           chmod +x ScaResolver
-
-
-          # Test if it runs
-
           ./ScaResolver --help
       - name: Run Checkmarx One SAST Scan
         uses: checkmarx/ast-github-action@main
