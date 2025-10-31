@@ -19,7 +19,7 @@ jobs:
 
           checkmarx-cli scan \
             --project "python" \
-            --api-key ${{ secrets.cx-api }} \
+            --api-key ${{ secrets.CX_API }} \
             --output "checkmarx-report.json"
       - name: List Scan Report
         run: |
