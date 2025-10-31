@@ -25,9 +25,11 @@ jobs:
       - name: shell
         run: |
           wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+          echo "Listing files before extraction:"
           ls -la
-          echo "extracting scaresolver-linux64.tar.gz"
+          echo "Listing contents of the tar.gz without extracting:"
+          tar -tzf ScaResolver-linux64.tar.gz
+          echo "Extracting ScaResolver-linux64.tar.gz..."
           tar -xzf ScaResolver-linux64.tar.gz
-          echo "list file after extraction"
+          echo "Listing files after extraction:"
           ls -la
-     
