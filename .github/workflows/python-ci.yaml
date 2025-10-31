@@ -1,4 +1,4 @@
-name: Python CI with Checkmarx One Scan
+name: Python CI
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  build-and-scan:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,31 +22,34 @@ jobs:
           pip install -r requirement.txt
       - name: Run tests
         run: pytest
-      - name: Download and setup SCA Resolver
-        run: >
-          rm -f ScaResolver
-          wget
-          https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+      - name: shell
+        run: |
+          wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+          echo "Listing files before extraction:"
+          ls -la
+          echo "Listing contents of the tar.gz without extracting:"
+          tar -tzf ScaResolver-linux64.tar.gz
+          echo "Extracting ScaResolver-linux64.tar.gz..."
+          tar -xzf ScaResolver-linux64.tar.gz
+          echo "Listing files after extraction:"
           pwd
           ls -la
-          tar -xzf ScaResolver-linux64.tar.gz
-          ls -la
+          echo "running sca"
           chmod +x ScaResolver
           ./ScaResolver --help
-      - name: Run Checkmarx One SAST Scan
-        uses: checkmarx/ast-github-action@main
+      - name: Checkmarx One CLI Action
+        uses: checkmarx/ast-github-action@main #Github Action version
         with:
           project_name: python
           cx_tenant: cdac
-          base_uri: https://ind.ast.checkmarx.net
+          base_uri: https://ind.ast.checkmarx.net 
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-      - name: Run Checkmarx One SCA Scan
+      - name: Scan with scaresolver
         uses: checkmarx/ast-github-action@main
         with:
-          project_name: python
           cx_tenant: cdac
-          base_uri: https://ind.ast.checkmarx.net
+          base_uri: https://ind.ast.checkmarx.net 
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params: --sca-resolver ${{ github.workspace }}/ScaResolver
+          additional_params: --sca-resolver ./ScaResolver
