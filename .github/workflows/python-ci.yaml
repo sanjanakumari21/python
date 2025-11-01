@@ -45,11 +45,5 @@ jobs:
           base_uri: https://ind.ast.checkmarx.net 
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-      - name: Scan with scaresolver
-        uses: checkmarx/ast-github-action@main
-        with:
-          cx_tenant: cdac
-          base_uri: https://ind.ast.checkmarx.net 
-          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
-          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          project_name: python
+          additional_params: --sca-resolver ./ScaResolver
+      
