@@ -41,7 +41,13 @@ jobs:
           ./ScaResolver --help
       - name: print path
         run: "echo $PATH\nwhich ScaResolver || echo \"ScaResolver not\_found\_in\_PATH\"\n"
-
+      - name: Add ScaResolver to PATH
+        run: |
+          chmod +x ./ScaResolver
+          echo "Adding ScaResolver to PATH"
+          echo "$PWD" >> $GITHUB_PATH
+      - name: check scaresolver
+        run: ScaResolver --help
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
         with:
