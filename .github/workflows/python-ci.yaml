@@ -39,6 +39,8 @@ jobs:
           echo "running sca"
           chmod a+x ./ScaResolver
           ./ScaResolver --help
+      - name: print path
+        run: echo $PATH
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
         with:
