@@ -45,8 +45,6 @@ jobs:
           echo "$PWD" >> $GITHUB_PATH
       - name: print path
         run: "echo $PATH\nwhich ScaResolver || echo \"ScaResolver not\_found\_in\_PATH\"\n"
-      - name: check scaresolver
-        run: ScaResolver --help
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
         with:
@@ -55,4 +53,4 @@ jobs:
           base_uri: https://ind.ast.checkmarx.net 
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params:  --sca-resolver ScaResolver --sca-resolver-params "--log-level Debug"
+          additional_params:  --sca-resolver ./ScaResolver --sca-resolver-params "--log-level Debug"
