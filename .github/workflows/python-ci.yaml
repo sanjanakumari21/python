@@ -38,11 +38,11 @@ jobs:
           chmod +x ScaResolver
           ./ScaResolver --help
       - name: Checkmarx One CLI Action
-        uses: checkmarx/ast-github-action@main #Github Action version
+        uses: checkmarx/ast-github-action@main 
         with:
           project_name: python
           cx_tenant: cdac
           base_uri: https://ind.ast.checkmarx.net 
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params: --sca-resolver ./requirement.txt      
+          additional_params: "--scan-type SAST,SCA --sca-resolver ./ScaResolver"
