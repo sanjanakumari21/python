@@ -37,7 +37,7 @@ jobs:
           pwd
           ls -la
           echo "running sca"
-          chmod +x ./ScaResolver
+          chmod a+x ./ScaResolver
           ./ScaResolver --help
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
@@ -47,4 +47,4 @@ jobs:
           base_uri: https://ind.ast.checkmarx.net 
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params:  --sca-resolver $SCAR_PATH --sca-resolver-params "--log-level Debug
+          additional_params:  --sca-resolver $SCAR_PATH --sca-resolver-params "--log-level Debug"
