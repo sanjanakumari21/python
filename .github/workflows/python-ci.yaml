@@ -26,43 +26,17 @@ jobs:
         run: |
           echo "Downloading latest ScaResolver..."
           wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
-
-          echo "Listing files before extraction:"
-          ls -la
-
-          echo "Listing contents of the tar.gz without extracting:"
-          tar -tzf ScaResolver-linux64.tar.gz
-
-          echo "Extracting ScaResolver-linux64.tar.gz..."
           tar -xzvf ScaResolver-linux64.tar.gz
-
-          echo "Setting execute permission on ScaResolver..."
           chmod +x ./ScaResolver
-
-          echo "Verifying ScaResolver binary details:"
-          file ./ScaResolver
-
-          echo "Testing ScaResolver execution before moving..."
           ./ScaResolver --version || ./ScaResolver --help
-
-          echo "Moving ScaResolver to /usr/local/bin to add to PATH..."
-          mv ./ScaResolver /usr/local/bin/ScaResolver
-
-          echo "Cleaning up archive..."
           rm -f ScaResolver-linux64.tar.gz
-
-          echo "Testing ScaResolver from PATH after moving..."
-          ScaResolver --version || ScaResolver --help
-
-          echo "Checking shared libraries for PATH version..."
-          ldd /usr/local/bin/ScaResolver
 
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
         with:
-          project_name: python
-          cx_tenant: cdac
-          base_uri: https://ind.ast.checkmarx.net 
-          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
-          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params: --sca-resolver ScaResolver --sca-resolver-params "--extract-archives zip,ear --extract-depth 3 --gradle-exclude-scopes api,testCompile"
+           project_name: python
+           cx_tenant: cdac
+           base_uri: https://ind.ast.checkmarx.net 
+           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+           additional_params: --sca-resolver ./ScaResolver 
