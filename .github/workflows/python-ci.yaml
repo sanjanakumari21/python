@@ -30,23 +30,14 @@ jobs:
           echo "Listing contents of the tar.gz without extracting:"
           tar -tzf ScaResolver-linux64.tar.gz
           echo "Extracting ScaResolver-linux64.tar.gz..."
-          tar -xzf ScaResolver-linux64.tar.gz
+          tar -xzvf ScaResolver-linux64.tar.gz
+          rm -rf ScaResolver-linux64.tar.gz
           echo "Listing files after extraction:"
           pwd
           ls -la
           echo "running sca"
           chmod a+x ./ScaResolver
           ./ScaResolver --help
-     
-      - name: Add ScaResolver to PATH
-        run: |
-          chmod +x ./ScaResolver
-          echo "Adding ScaResolver to PATH"
-          echo "$PWD" >> $GITHUB_PATH
-      - name: print path
-        run: |  
-         "echo $PATH"
-         "echo $GITHUB_PATH"
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
         with:
@@ -55,4 +46,4 @@ jobs:
           base_uri: https://ind.ast.checkmarx.net 
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params:  --sca-resolver "$PWD/ScaResolver" --sca-resolver-params "--log-level Debug"
+          additional_params:  --sca-resolver ./ScaResolver  --sca-resolver-params "--log-level Debug"
