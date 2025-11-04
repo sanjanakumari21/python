@@ -22,6 +22,8 @@ jobs:
           pip install -r requirement.txt
       - name: Run tests
         run: pytest
+      - name: shell
+        run: |
           echo "Downloading latest ScaResolver..."
           wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
 
