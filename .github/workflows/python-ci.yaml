@@ -24,14 +24,33 @@ jobs:
         run: pytest
       - name: shell
         run: |
+          echo "Downloading latest ScaResolver..."
           wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+
           echo "Listing files before extraction:"
           ls -la
+
           echo "Listing contents of the tar.gz without extracting:"
           tar -tzf ScaResolver-linux64.tar.gz
+
           echo "Extracting ScaResolver-linux64.tar.gz..."
           tar -xzvf ScaResolver-linux64.tar.gz
-          rm -rf ScaResolver-linux64.tar.gz
+
+          echo "Setting execute permission on ScaResolver..."
+          chmod +x ./ScaResolver
+
+          echo "Verifying ScaResolver binary details:"
+          file ./ScaResolver
+
+          echo "Fixing potential dynamic linker issue on Ubuntu runner..."
+          sudo ln -sf /lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
+
+          echo "Testing ScaResolver execution..."
+          ./ScaResolver --version || ./ScaResolver --help
+
+          echo "Cleaning up archive..."
+          rm -f ScaResolver-linux64.tar.gz
+
           echo "Listing files after extraction:"
           pwd
           ls -la
