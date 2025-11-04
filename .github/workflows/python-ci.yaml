@@ -41,12 +41,14 @@ jobs:
 
           echo "Verifying ScaResolver binary details:"
           file ./ScaResolver
-          
-          echo "Moving ScaResolver to /usr/local/bin to add to PATH..."
-          mv ./ScaResolver /usr/local/bin/ScaResolver
+
+         
 
           echo "Testing ScaResolver execution..."
           ./ScaResolver --version || ./ScaResolver --help
+
+           echo "Moving ScaResolver to /usr/local/bin to add to PATH..."
+          mv ./ScaResolver /usr/local/bin/ScaResolver
 
           echo "Cleaning up archive..."
           rm -f ScaResolver-linux64.tar.gz
