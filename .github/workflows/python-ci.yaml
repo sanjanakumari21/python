@@ -41,8 +41,8 @@ jobs:
         run: |
           echo "Starting Checkmarx SCA scan..."
           ./ScaResolver -s . -n python --project python \
-            --tenant cdac \
-            --client-id "${{ secrets.CX_CLIENT_ID }}" \
-            --client-secret "${{ secrets.CX_CLIENT_SECRET }}" \
-            --server https://ind.ast.checkmarx.net \
-            --extract-archives zip,ear --extract-depth 3 --gradle-exclude-scopes api,testCompile
+          project_name: python
+          cx_tenant: cdac
+          base_uri: https://ind.ast.checkmarx.net
+          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
