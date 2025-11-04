@@ -41,9 +41,9 @@ jobs:
 
           echo "Verifying ScaResolver binary details:"
           file ./ScaResolver
-
-          echo "Fixing potential dynamic linker issue on Ubuntu runner..."
-          sudo ln -sf /lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
+          
+          echo "Moving ScaResolver to /usr/local/bin to add to PATH..."
+          mv ./ScaResolver /usr/local/bin/ScaResolver
 
           echo "Testing ScaResolver execution..."
           ./ScaResolver --version || ./ScaResolver --help
