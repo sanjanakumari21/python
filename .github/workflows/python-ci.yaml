@@ -39,7 +39,7 @@ jobs:
           echo "Setting execute permission on ScaResolver..."
           chmod +x ./ScaResolver
 
-          "Verifying ScaResolver binary details:"
+          echo "Verifying ScaResolver binary details:"
           file ./ScaResolver
 
           echo "Fixing potential dynamic linker issue on Ubuntu runner..."
