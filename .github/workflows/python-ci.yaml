@@ -10,7 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,45 +22,27 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirement.txt || echo "requirements file missing or empty"
+          pip install -r requirement.txt
 
       - name: Run tests
-        run: pytest || echo "Tests failed or not present"
+        run: pytest
 
-      - name: Download ScaResolver into workspace
+      - name: Download and prepare ScaResolver
         run: |
-          echo "⬇ Downloading ScaResolver..."
-          wget -q https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+          echo "Downloading latest ScaResolver..."
+          wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
 
-          echo "📦 Extracting ScaResolver..."
-          tar -xzf ScaResolver-linux64.tar.gz -C $GITHUB_WORKSPACE
+          echo "Extracting ScaResolver..."
+          tar -xzvf ScaResolver-linux64.tar.gz
+          chmod +x ./ScaResolver
+          ./ScaResolver --version
 
-          echo "🧾 Setting execute permission..."
-          chmod +x $GITHUB_WORKSPACE/ScaResolver
-
-          echo "Verifying..."
-          ls -la $GITHUB_WORKSPACE/ScaResolver
-          file $GITHUB_WORKSPACE/ScaResolver
-          $GITHUB_WORKSPACE/ScaResolver --version || $GITHUB_WORKSPACE/ScaResolver --help
-
-          echo "🧹 Cleaning up..."
-          rm -f ScaResolver-linux64.tar.gz
-
-      - name: Debug workspace before scan
+      - name: Run Checkmarx SCA scan via CLI
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Workspace content:"
-          ls -la $GITHUB_WORKSPACE
-
-      - name: Checkmarx One CLI Action
-        uses: checkmarx/ast-github-action@main
-        with:
-          project_name: python
-          cx_tenant: cdac
-          base_uri: https://ind.ast.checkmarx.net
-          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
-          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params: |
-            --sca-resolver $GITHUB_WORKSPACE/ScaResolver
-            --sca-resolver-params "--extract-archives zip,ear --extract-depth 3 --gradle-exclude-scopes api,testCompile"
+          echo "Starting Checkmarx SCA scan..."
+          ./ScaResolver -s . -n python --project python \
+            --tenant cdac \
+            --client-id "${{ secrets.CX_CLIENT_ID }}" \
+            --client-secret "${{ secrets.CX_CLIENT_SECRET }}" \
+            --server https://ind.ast.checkmarx.net \
+            --extract-archives zip,ear --extract-depth 3 --gradle-exclude-scopes api,testCompile
