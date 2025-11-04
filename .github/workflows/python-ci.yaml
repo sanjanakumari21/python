@@ -22,8 +22,6 @@ jobs:
           pip install -r requirement.txt
       - name: Run tests
         run: pytest
-      - name: shell
-        run: |
           echo "Downloading latest ScaResolver..."
           wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
 
@@ -42,21 +40,21 @@ jobs:
           echo "Verifying ScaResolver binary details:"
           file ./ScaResolver
 
-         
-
-          echo "Testing ScaResolver execution..."
+          echo "Testing ScaResolver execution before moving..."
           ./ScaResolver --version || ./ScaResolver --help
 
-           echo "Moving ScaResolver to /usr/local/bin to add to PATH..."
+          echo "Moving ScaResolver to /usr/local/bin to add to PATH..."
           mv ./ScaResolver /usr/local/bin/ScaResolver
 
           echo "Cleaning up archive..."
           rm -f ScaResolver-linux64.tar.gz
-          echo "library"
-          file ./ScaResolver
-          echo "checking shared libraries"
-          ldd ./ScaResolver
-          ./ScaResolver --help
+
+          echo "Testing ScaResolver from PATH after moving..."
+          ScaResolver --version || ScaResolver --help
+
+          echo "Checking shared libraries for PATH version..."
+          ldd /usr/local/bin/ScaResolver
+
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
         with:
