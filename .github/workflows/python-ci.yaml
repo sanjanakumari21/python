@@ -39,7 +39,7 @@ jobs:
           echo "Setting execute permission on ScaResolver..."
           chmod +x ./ScaResolver
 
-          echo "Verifying ScaResolver binary details:"
+          "Verifying ScaResolver binary details:"
           file ./ScaResolver
 
           echo "Fixing potential dynamic linker issue on Ubuntu runner..."
@@ -50,12 +50,6 @@ jobs:
 
           echo "Cleaning up archive..."
           rm -f ScaResolver-linux64.tar.gz
-
-          echo "Listing files after extraction:"
-          pwd
-          ls -la
-          echo "running sca"
-          chmod a+x ./ScaResolver
           ./ScaResolver --help
       - name: Verify ScaResolver location
         run: |
