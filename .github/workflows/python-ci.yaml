@@ -50,6 +50,10 @@ jobs:
 
           echo "Cleaning up archive..."
           rm -f ScaResolver-linux64.tar.gz
+          echo "library"
+          file ./ScaResolver
+          echo "checking shared libraries"
+          ldd ./ScaResolver
           ./ScaResolver --help
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main 
