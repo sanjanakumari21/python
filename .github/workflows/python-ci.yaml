@@ -30,17 +30,14 @@ jobs:
 
       - name: shell
         run: |
-          wget -q https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
-          tar -xzf ScaResolver-linux64.tar.gz -C $GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
           pwd
           ls -la
-          chmod +x $GITHUB_WORKSPACE/ScaResolver
           ls -la
           pip3 install virtualenv pipdeptree graphviz
-          ./ScaResolver offline --project-name 'python' -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE
-          cat ./cx-results/.cxsca-results.json
-          rm -f ScaResolver-linux64.tar.gz
+       #   ./ScaResolver offline --project-name 'python' -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE
+      #    cat ./cx-results/.cxsca-results.json
+      #    rm -f ScaResolver-linux64.tar.gz
 
       - name: Debug workspace before scan
         run: |
@@ -57,4 +54,4 @@ jobs:
           base_uri: https://ind.ast.checkmarx.net
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-            
+          scan_params: --sca-resolver ./ScaResolver
