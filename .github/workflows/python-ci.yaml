@@ -28,7 +28,7 @@ jobs:
       - name: Run tests
         run: pytest || echo "Tests failed or not present"
 
-      - name: Download ScaResolver into workspace
+      - name: shell
         run: |
           echo "⬇ Downloading ScaResolver..."
           wget -q https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
@@ -37,13 +37,12 @@ jobs:
           tar -xzf ScaResolver-linux64.tar.gz -C $GITHUB_WORKSPACE
 
           echo "🧾 Setting execute permission..."
-          chmod a+x $GITHUB_WORKSPACE/ScaResolver
+          chmod +x $GITHUB_WORKSPACE/ScaResolver
 
-          echo "Verifying..."
-          ls -la $GITHUB_WORKSPACE/ScaResolver
-          file $GITHUB_WORKSPACE/ScaResolver
-          $GITHUB_WORKSPACE/ScaResolver --version || $GITHUB_WORKSPACE/ScaResolver --help
-
+          
+          
+           ./ScaResolver offline --project-name 'python' -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE"
+          ls -la
           echo "🧹 Cleaning up..."
           rm -f ScaResolver-linux64.tar.gz
 
@@ -62,6 +61,4 @@ jobs:
           base_uri: https://ind.ast.checkmarx.net
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params: |
-            --sca-resolver $GITHUB_WORKSPACE/ScaResolver
-      
+            
