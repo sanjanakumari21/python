@@ -25,12 +25,12 @@ jobs:
 
       - name: Run Checkmarx One CLI Scan
         run: |
-            project-name: ${{ github.repository }} \
-            branch: ${GITHUB_REF##*/} \
-            base-uri: ${{ secrets.CX_BASE_URI }} \
-            tenant: ${{ secrets.CX_TENANT }} \
-            client-id: ${{ secrets.CX_CLIENT_ID }} \
-            client-secret: ${{ secrets.CX_CLIENT_SECRET }} \
+            project_name: ${{ github.repository }} 
+            branch: ${GITHUB_REF##*/} 
+            base_uri: ${{ secrets.CX_BASE_URI }} 
+            cx_tenant: cdac
+            cx_client_id: ${{ secrets.CX_CLIENT_ID }} 
+            cx_client-secret: ${{ secrets.CX_CLIENT_SECRET }} 
             cx_tenant: cdac
             cx --sca-resolver --help
             --sca-resolver ./ScaResolver
