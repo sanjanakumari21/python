@@ -41,7 +41,7 @@ jobs:
 
           
           
-           "./ScaResolver offline --project-name 'python' -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE"
+          ./ScaResolver offline
           ls -la
           echo "🧹 Cleaning up..."
           rm -f ScaResolver-linux64.tar.gz
