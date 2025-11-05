@@ -26,8 +26,8 @@ jobs:
       - name: Run Checkmarx One CLI Scan
         run: |
           
-            scan create \
-            -s . \
+            
+            
             --agent GitHub \
             --project-name ${{ github.repository }} \
             --branch ${GITHUB_REF##*/} \
