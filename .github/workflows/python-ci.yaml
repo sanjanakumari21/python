@@ -37,7 +37,7 @@ jobs:
           ls -la
           chmod +x $GITHUB_WORKSPACE/ScaResolver
           ls -la
-          ./ScaResolver offline -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE
+          ./ScaResolver offline --project-name'python' -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE
           rm -f ScaResolver-linux64.tar.gz
 
       - name: Debug workspace before scan
