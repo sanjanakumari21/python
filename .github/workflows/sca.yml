@@ -25,10 +25,6 @@ jobs:
 
       - name: Run Checkmarx One CLI Scan
         run: |
-          
-            
-            
-            --agent GitHub \
             --project-name ${{ github.repository }} \
             --branch ${GITHUB_REF##*/} \
             --base-uri ${{ secrets.CX_BASE_URI }} \
