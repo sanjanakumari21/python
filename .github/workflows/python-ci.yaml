@@ -37,6 +37,7 @@ jobs:
           ls -la
           chmod +x $GITHUB_WORKSPACE/ScaResolver
           ls -la
+          pip3 install virtualenv pipdeptree graphviz
           ./ScaResolver offline --project-name 'python' -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE
           cat ./cx-results/.cxsca-results.json
           rm -f ScaResolver-linux64.tar.gz
