@@ -1,1 +1,5 @@
 pytest
+Werkzeug==0.14.1            
+MarkupSafe==1.0              
+paramiko==2.0.0              
+SQLAlchemy==1.2.18           
