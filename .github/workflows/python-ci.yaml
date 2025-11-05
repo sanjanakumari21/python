@@ -30,20 +30,14 @@ jobs:
 
       - name: shell
         run: |
-          echo "⬇ Downloading ScaResolver..."
           wget -q https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
-
-          echo "📦 Extracting ScaResolver..."
           tar -xzf ScaResolver-linux64.tar.gz -C $GITHUB_WORKSPACE
-
-          echo "🧾 Setting execute permission..."
-          chmod +x $GITHUB_WORKSPACE/ScaResolver
-
-          
-          
-          ./ScaResolver offline
+          echo $GITHUB_WORKSPACE
+          pwd
           ls -la
-          echo "🧹 Cleaning up..."
+          chmod +x $GITHUB_WORKSPACE/ScaResolver
+          ls -la
+          ./ScaResolver offline
           rm -f ScaResolver-linux64.tar.gz
 
       - name: Debug workspace before scan
