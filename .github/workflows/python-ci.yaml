@@ -23,6 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip3 install virtualenv pipdeptree graphviz
           pip install -r requirement.txt || echo "requirements file missing or empty"
 
       - name: Run tests
@@ -30,21 +31,11 @@ jobs:
 
       - name: shell
         run: |
+          wget -q https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
+          tar -xzf ScaResolver-linux64.tar.gz -C $GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
-          pwd
-          ls -la
-          ls -la
-          pip3 install virtualenv pipdeptree graphviz
-       #   ./ScaResolver offline --project-name 'python' -r './cx-results/.cxsca-results.json' -s $GITHUB_WORKSPACE
-      #    cat ./cx-results/.cxsca-results.json
-      #    rm -f ScaResolver-linux64.tar.gz
-
-      - name: Debug workspace before scan
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Workspace content:"
-          ls -la $GITHUB_WORKSPACE
+          chmod +x $GITHUB_WORKSPACE/ScaResolver
+          rm -f ScaResolver-linux64.tar.gz
 
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main
