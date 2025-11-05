@@ -39,4 +39,5 @@ jobs:
             --client-secret ${{ secrets.CX_CLIENT_SECRET }} \
             cx_tenant: cdac
             cx --sca-resolver --help
+             $ cx scan create --project-name python -s https://github.com/sanjanakumari21/python.git
             --sca-resolver ./ScaResolver
