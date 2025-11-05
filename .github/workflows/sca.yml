@@ -25,9 +25,7 @@ jobs:
 
       - name: Run Checkmarx One CLI Scan
         run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          /home/linuxbrew/.linuxbrew/bin/brew install checkmarx/ast-cli/ast-cli
-          /home/linuxbrew/.linuxbrew/Cellar/ast-cli/*/bin/cx \
+          
             scan create \
             -s . \
             --agent GitHub \
@@ -39,5 +37,4 @@ jobs:
             --client-secret ${{ secrets.CX_CLIENT_SECRET }} \
             cx_tenant: cdac
             cx --sca-resolver --help
-             $ cx scan create --project-name python -s https://github.com/sanjanakumari21/python.git
             --sca-resolver ./ScaResolver
