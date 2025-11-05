@@ -25,7 +25,7 @@ jobs:
 
       - name: Run Checkmarx One CLI Scan
         run: |
-          --sca-resolver --help
+          
             scan create \
             -s . \
             --agent GitHub \
