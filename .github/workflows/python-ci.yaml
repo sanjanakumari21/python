@@ -27,22 +27,4 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Download and prepare ScaResolver
-        run: |
-          echo "Downloading latest ScaResolver..."
-          wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
-
-          echo "Extracting ScaResolver..."
-          tar -xzvf ScaResolver-linux64.tar.gz
-          chmod +x ./ScaResolver
-          ./ScaResolver --version
-
-      - name: Run Checkmarx SCA scan via CLI
-        run: |
-          echo "Starting Checkmarx SCA scan..."
-          ./ScaResolver -s . -n python --project python \
-          
-          cx_tenant: cdac
-          base_uri: https://ind.ast.checkmarx.net
-          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
-          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+      
